@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 const SuccessPage = () => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const isYearly = searchParams.get("year") === "true";
+	const isYearly = searchParams?.get("year") === "true";
 
 	const benefits = isYearly
 		? [
