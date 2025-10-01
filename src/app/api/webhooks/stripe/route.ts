@@ -86,9 +86,7 @@ async function handleCheckoutSessionCompleted(
   if (
     session.metadata &&
     session.metadata.courseTitle &&
-    session.metadata.courseImageUrl &&
-    process.env.NODE_ENV === "development"
-  ) {
+    session.metadata.courseImageUrl ) {
     try {
       const data = await resend.emails.send({
         from: "MasterClass <onboarding@resend.dev>",
@@ -148,7 +146,7 @@ async function handleSubscriptionUpsert(
 
     const isCreation = eventType === "customer.subscription.created";
 
-    if (isCreation && process.env.NODE_ENV === "development") {
+    if (isCreation) {
       await resend.emails.send({
         from: "MasterClass <onboarding@resend.dev>",
         to: user.email,
