@@ -91,7 +91,7 @@ async function handleCheckoutSessionCompleted(
   ) {
     try {
       const data = await resend.emails.send({
-        from: "MasterClass salmanyusufzai48@gmail.com",
+        from: "MasterClass <onboarding@resend.dev>",
         to: user.email,
         subject: "Purchase Confirmed",
         react: PurchaseConfirmationEmail({
