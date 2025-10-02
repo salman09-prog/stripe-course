@@ -1,12 +1,15 @@
 import { httpRouter } from "convex/server";
-import { httpAction } from "./_generated/server";
+import { httpAction, query } from "./_generated/server";
 import { Webhook } from "svix";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { api } from "./_generated/api";
 import stripe from "../src/lib/stripe";
 import { WelcomeEmailHtml } from "@/emails/WelcomeEmail";
 import resend from "@/lib/resend";
+import { ConvexHttpClient } from "convex/browser";
 const http = httpRouter();
+
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 const clerkWebhook = httpAction(async (ctx, request) => {
   const webhookSecret = process.env.CLERK_WEBHOOK_SECRET;
@@ -65,7 +68,7 @@ const clerkWebhook = httpAction(async (ctx, request) => {
 
         const data = await resend.emails.send({
           from: "MasterClass <onboarding@resend.dev>",
-          to: "salmanyusufzai48@gmail.com",
+          to: email,
           subject: "Welcome to MasterClass!",
           html, // ✅ pass plain HTML
         });
